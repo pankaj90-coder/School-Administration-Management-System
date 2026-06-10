@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>School ERP Dashboard</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================
+   GLOBAL
+========================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+    color:white;
+    display:flex;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* =========================================
+   SIDEBAR
+========================================= */
+
+.sidebar{
+    width:280px;
+    height:100vh;
+    position:fixed;
+    left:0;
+    top:0;
+    background:rgba(15,23,42,0.96);
+    backdrop-filter:blur(15px);
+    padding:25px;
+    overflow-y:auto;
+    border-right:1px solid rgba(255,255,255,0.08);
+    box-shadow:0 10px 30px rgba(0,0,0,0.35);
+    transition:0.3s;
+    z-index:1000;
+}
+
+.logo{
+    text-align:center;
+    font-size:30px;
+    font-weight:700;
+    color:#38bdf8;
+    margin-bottom:40px;
+}
+
+.sidebar ul{
+    list-style:none;
+}
+
+.sidebar ul li{
+    margin-bottom:15px;
+}
+
+.sidebar ul li a{
+    text-decoration:none;
+    color:#cbd5e1;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:15px 18px;
+    border-radius:16px;
+    transition:0.35s;
+    font-size:16px;
+    font-weight:500;
+}
+
+.sidebar ul li a:hover{
+    background:linear-gradient(135deg,#2563eb,#38bdf8);
+    color:white;
+    transform:translateX(6px);
+}
+
+.sidebar ul li a i{
+    width:22px;
+    text-align:center;
+}
+
+/* =========================================
+   MAIN
+========================================= */
+
+.main{
+    margin-left:280px;
+    width:calc(100% - 280px);
+    padding:30px;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header{
+    background:rgba(30,41,59,0.9);
+    backdrop-filter:blur(10px);
+    padding:30px;
+    border-radius:24px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.25);
+}
+
+.header h1{
+    color:#38bdf8;
+    margin-bottom:10px;
+    font-size:34px;
+}
+
+.header p{
+    color:#cbd5e1;
+}
+
+/* =========================================
+   CARDS
+========================================= */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+    margin-top:30px;
+}
+
+.card{
+    background:rgba(30,41,59,0.9);
+    padding:28px;
+    border-radius:24px;
+    text-align:center;
+    transition:0.35s;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,0.25);
+}
+
+.card::before{
+    content:'';
+    position:absolute;
+    width:100%;
+    height:5px;
+    top:0;
+    left:0;
+    background:linear-gradient(to right,#2563eb,#38bdf8);
+}
+
+.card:hover{
+    transform:translateY(-10px);
+}
+
+.card h2{
+    font-size:38px;
+    margin-bottom:10px;
+    color:#38bdf8;
+}
+
+.card p{
+    color:#cbd5e1;
+}
+
+/* =========================================
+   SECTION
+========================================= */
+
+.section{
+    background:rgba(30,41,59,0.9);
+    margin-top:30px;
+    padding:30px;
+    border-radius:24px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.25);
+}
+
+.section h2{
+    color:#38bdf8;
+    margin-bottom:25px;
+}
+
+/* =========================================
+   FORM
+========================================= */
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:16px;
+    margin-bottom:18px;
+    border:none;
+    border-radius:16px;
+    background:#334155;
+    color:white;
+    outline:none;
+    transition:0.3s;
+}
+
+input::placeholder,
+textarea::placeholder{
+    color:#94a3b8;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+    border:2px solid #38bdf8;
+    box-shadow:0 0 0 4px rgba(56,189,248,0.15);
+}
+
+/* =========================================
+   BUTTON
+========================================= */
+
+button{
+    background:linear-gradient(135deg,#2563eb,#38bdf8);
+    color:white;
+    border:none;
+    padding:15px 24px;
+    border-radius:16px;
+    cursor:pointer;
+    transition:0.35s;
+    font-size:15px;
+    font-weight:600;
+}
+
+button:hover{
+    transform:translateY(-4px);
+}
+
+/* =========================================
+   TABLE
+========================================= */
+
+.table-container{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+    min-width:700px;
+}
+
+table th{
+    background:linear-gradient(135deg,#2563eb,#38bdf8);
+    color:white;
+    padding:16px;
+}
+
+table td{
+    background:#334155;
+    padding:14px;
+    text-align:center;
+    border-bottom:1px solid #475569;
+}
+
+table tr:hover td{
+    background:#475569;
+}
+
+/* =========================================
+   NOTICE
+========================================= */
+
+.notice{
+    background:#334155;
+    padding:18px;
+    margin:15px 0;
+    border-left:6px solid #38bdf8;
+    border-radius:16px;
+    transition:0.35s;
+}
+
+.notice:hover{
+    background:#475569;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.footer{
+    text-align:center;
+    margin-top:40px;
+    color:#94a3b8;
+    padding:20px;
+}
+
+/* =========================================
+   SCROLLBAR
+========================================= */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-track{
+    background:#111827;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#38bdf8;
+    border-radius:20px;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+.menu-btn{
+    display:none;
+}
+
+@media(max-width:768px){
+
+    body{
+        flex-direction:column;
+    }
+
+    .sidebar{
+        left:-280px;
+    }
+
+    .sidebar.show{
+        left:0;
+    }
+
+    .main{
+        margin-left:0;
+        width:100%;
+        padding:20px;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .menu-btn{
+        display:flex;
+        position:fixed;
+        top:20px;
+        left:20px;
+        width:50px;
+        height:50px;
+        background:#2563eb;
+        color:white;
+        align-items:center;
+        justify-content:center;
+        border-radius:14px;
+        cursor:pointer;
+        z-index:2000;
+    }
+
+    table{
+        display:block;
+        overflow-x:auto;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="menu-btn" onclick="toggleMenu()">
+    <i class="fa fa-bars"></i>
+</div>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar" id="sidebar">
+
+    <div class="logo">
+        School ERP
+    </div>
+
+    <ul>
+
+        <li><a href="#dashboard"><i class="fa fa-chart-line"></i> Dashboard</a></li>
+
+        <li><a href="#student"><i class="fa fa-user-graduate"></i> Students</a></li>
+
+        <li><a href="#teacher"><i class="fa fa-chalkboard-user"></i> Teachers</a></li>
+
+        <li><a href="#attendance"><i class="fa fa-calendar-check"></i> Attendance</a></li>
+
+        <li><a href="#marks"><i class="fa fa-square-poll-vertical"></i> Marks</a></li>
+
+        <li><a href="#fees"><i class="fa fa-money-bill-wave"></i> Fees</a></li>
+
+        <li><a href="#notice"><i class="fa fa-bullhorn"></i> Notice Board</a></li>
+
+        <li><a href="#report"><i class="fa fa-chart-pie"></i> Reports</a></li>
+
+    </ul>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+    <!-- HEADER -->
+
+    <div class="header" id="dashboard">
+
+        <h1>School Administration Management System</h1>
+
+        <p>
+            Manage Students, Teachers, Attendance,
+            Fees and Reports with Modern Dashboard
+        </p>
+
+    </div>
+
+    <!-- CARDS -->
+
+    <div class="cards">
+
+        <div class="card">
+            <h2>250</h2>
+            <p>Total Students</p>
+        </div>
+
+        <div class="card">
+            <h2>25</h2>
+            <p>Total Teachers</p>
+        </div>
+
+        <div class="card">
+            <h2>95%</h2>
+            <p>Attendance</p>
+        </div>
+
+        <div class="card">
+            <h2>₹1.5L</h2>
+            <p>Fee Collection</p>
+        </div>
+
+    </div>
+
+    <!-- STUDENTS -->
+
+    <div class="section" id="student">
+
+        <h2>Add Student</h2>
+
+        <input type="number" placeholder="Student ID">
+
+        <input type="text" placeholder="Student Name">
+
+        <input type="text" placeholder="Class">
+
+        <button>Add Student</button>
+
+        <div class="table-container">
+
+            <table>
+
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Class</th>
+                </tr>
+
+                <tr>
+                    <td>101</td>
+                    <td>Rahul</td>
+                    <td>10th</td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- TEACHERS -->
+
+    <div class="section" id="teacher">
+
+        <h2>Add Teacher</h2>
+
+        <input type="number" placeholder="Teacher ID">
+
+        <input type="text" placeholder="Teacher Name">
+
+        <input type="text" placeholder="Subject">
+
+        <button>Add Teacher</button>
+
+    </div>
+
+    <!-- ATTENDANCE -->
+
+    <div class="section" id="attendance">
+
+        <h2>Attendance Management</h2>
+
+        <input type="number" placeholder="Student ID">
+
+        <input type="number" placeholder="Attendance %">
+
+        <button>Update Attendance</button>
+
+    </div>
+
+    <!-- MARKS -->
+
+    <div class="section" id="marks">
+
+        <h2>Marks Management</h2>
+
+        <input type="number" placeholder="Student ID">
+
+        <input type="number" placeholder="Marks">
+
+        <button>Update Marks</button>
+
+    </div>
+
+    <!-- FEES -->
+
+    <div class="section" id="fees">
+
+        <h2>Fee Management</h2>
+
+        <input type="number" placeholder="Student ID">
+
+        <button>Mark Fee Paid</button>
+
+    </div>
+
+    <!-- NOTICE -->
+
+    <div class="section" id="notice">
+
+        <h2>Notice Board</h2>
+
+        <input type="text" placeholder="Enter Notice">
+
+        <button>Add Notice</button>
+
+        <div class="notice">
+            Annual Sports Day on 15 August
+        </div>
+
+        <div class="notice">
+            Mid-Term Exams start next week
+        </div>
+
+    </div>
+
+    <!-- REPORT -->
+
+    <div class="section" id="report">
+
+        <h2>School Report</h2>
+
+        <div class="table-container">
+
+            <table>
+
+                <tr>
+                    <th>Total Students</th>
+                    <th>Total Teachers</th>
+                    <th>Total Notices</th>
+                </tr>
+
+                <tr>
+                    <td>250</td>
+                    <td>25</td>
+                    <td>8</td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+
+        © 2026 School ERP Dashboard | All Rights Reserved
+
+    </div>
+
+</div>
+
+<script>
+
+function toggleMenu(){
+
+    document.getElementById("sidebar")
+    .classList.toggle("show");
+
+}
+
+</script>
+
+</body>
+</html>
